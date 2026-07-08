@@ -46,9 +46,9 @@ Skills util (`src/lib/skills.ts`) + tests ✅ — 11 tests, incl. the 4 spec cas
 | Profile (+Background slide) | ✅ | ✅ (auto) | stats, vitals, top skills, chrome; slide page |
 | Inventory | ✅ | ✅ (auto) | category subtabs, 4-up grid, detail panel |
 | Store | ✅ | ✅ (auto) | status bar, subtabs, grid, cart (view-only) |
-| Activities | ☐ | ☐ | free-time card, standard list, random board |
-| Contacts | ☐ | ☐ | channel list, thread area, compose (display) |
-| Story So Far | ☐ | ☐ | ribbon ↔ vertical detail |
+| Activities | ✅ | ✅ (auto) | free-time card, standard list, random board |
+| Contacts | ✅ | ✅ (auto) | channel list, thread area, compose (display) |
+| Story So Far | ✅ | ✅ (auto) | ribbon ↔ vertical detail |
 
 ## Shared primitives
 - [x] Panel, Card, SectionHeader, StatChip, VitalBar, Segmented, SkillRow, CategoryTabs, Pill, Avatar, IconBox, NavRail (`src/app/ui/`)
