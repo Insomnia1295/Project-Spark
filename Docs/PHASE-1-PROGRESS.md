@@ -5,11 +5,15 @@
 > `reference/Steven Heartman.pdf`. Rules: data-driven (no hardcoded content/colors), TS strict
 > no `any`, anon+RLS only, tokens-only styling, reusable primitives.
 
-## Build order (commit after each group)
-- **Wave A — data layer**
-- **Wave B — Home / Profile / Inventory / Store**
-- **Wave C — Activities / Contacts / Story + realtime + click-to-roll**
-- **Wave D — seed script, gates (typecheck/test/build), PHASE-1-RESULT.md**
+## Build order (commit after each group) — ALL COMPLETE ✅
+- **Wave A — data layer** ✅ (commit 86dd1e6)
+- **Wave B — Home / Profile / Inventory / Store** ✅ (8896a67, f3de641, fe891b5)
+- **Wave C — Activities / Contacts / Story + realtime + click-to-roll** ✅ (4a5bfa9)
+- **Wave D — seed script, gates (typecheck/test/build), PHASE-1-RESULT.md** ✅
+
+Gates: typecheck 0 errors · `npm test` 25/25 · `npm run build` clean · boots to login, no errors.
+Seed = `scripts/seed-phase1.mjs` (written, idempotent) — GM runs it (needs service_role).
+See [PHASE-1-RESULT.md](PHASE-1-RESULT.md) for the full handoff + self-test table.
 
 ## Cloud handoff (GM runs; needs secrets I don't have)
 - [ ] `supabase db push` (applies migration 0003)

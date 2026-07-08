@@ -20,6 +20,8 @@
   --news: #b76bff; /* news / badge violet */
   --ok: #3ff0a0;   /* success green */
   --warm: #ff9a6e; /* warm end of the HP bar */
+  --pure: #fff;    /* max-emphasis white (brighter than --ink) */
+  --edge: #0a0e18; /* stage-dark, used for rings/borders that sit on the backdrop */
 
   /* Inset surfaces + bar tracks (repeated fills, tokenized so components carry no raw colors) */
   --inset: rgba(255, 255, 255, 0.04);

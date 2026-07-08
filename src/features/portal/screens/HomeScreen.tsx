@@ -59,8 +59,8 @@ export function HomeScreen() {
           zIndex: 3,
           background: hero.src ? `url(${hero.src}) center/cover` : hero.placeholder,
           clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-          maskImage: "linear-gradient(180deg, #000 72%, transparent)",
-          WebkitMaskImage: "linear-gradient(180deg, #000 72%, transparent)",
+          maskImage: "linear-gradient(180deg, black 72%, transparent)",
+          WebkitMaskImage: "linear-gradient(180deg, black 72%, transparent)",
           opacity: 0.9,
         }}
         aria-label="Character hero (placeholder)"
@@ -84,7 +84,7 @@ export function HomeScreen() {
         )}
         <div
           className="gw"
-          style={{ fontFamily: "Corpta", fontSize: 74, lineHeight: 0.9, color: "#fff", marginTop: 6 }}
+          style={{ fontFamily: "Corpta", fontSize: 74, lineHeight: 0.9, color: "var(--pure)", marginTop: 6 }}
         >
           {first}
           {last && (

@@ -33,7 +33,7 @@ export function StoryScreen() {
             <div style={{ position: "absolute", left: 0, right: 0, top: 58, height: 2, background: "var(--grad-timeline)" }} />
             {events.map((e, i) => (
               <div key={e.id} style={{ position: "absolute", left: 6 + i * 358, top: 0, width: 330 }}>
-                <div style={{ position: "absolute", left: 2, top: 50, width: 18, height: 18, borderRadius: "50%", background: "var(--p1)", border: "3px solid #0a0e18", boxShadow: "0 0 12px var(--p1)" }} />
+                <div style={{ position: "absolute", left: 2, top: 50, width: 18, height: 18, borderRadius: "50%", background: "var(--p1)", border: "3px solid var(--edge)", boxShadow: "0 0 12px var(--p1)" }} />
                 <div style={{ position: "absolute", left: 0, top: 18, font: "700 10px Inter", color: "var(--p1)" }}>{e.date_label}</div>
                 <Card accent tap onClick={() => open(i)} style={{ position: "absolute", left: 0, top: 96, width: 322, padding: "16px 18px" }}>
                   <div style={{ fontFamily: "Corpta", fontSize: 18 }}>{e.title}</div>
@@ -90,7 +90,7 @@ export function StoryScreen() {
           <Panel accent style={{ left: 760, top: 200, width: 800, height: 560, padding: 0, overflow: "hidden" }}>
             <div style={{ height: 260, background: asset("comic.session").placeholder, display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
               <span style={{ fontFamily: "Corpta", fontSize: 22, letterSpacing: 2, color: "rgba(255,255,255,.65)" }}>COMIC PANEL</span>
-              <div style={{ position: "absolute", left: 18, bottom: 15, font: "700 10px Inter", color: "#fff", letterSpacing: 1 }}>
+              <div style={{ position: "absolute", left: 18, bottom: 15, font: "700 10px Inter", color: "var(--pure)", letterSpacing: 1 }}>
                 SESSION {String(events[selected].session_no).padStart(2, "0")}
               </div>
             </div>

@@ -79,7 +79,7 @@ export function InventoryScreen() {
       <Panel accent style={{ left: 1202, top: 130, width: 358, height: 620, padding: "20px 24px" }}>
         {selected ? (
           <>
-            <div style={{ fontFamily: "Corpta", fontSize: 17, letterSpacing: 2, color: "#fff" }}>DETAIL</div>
+            <div style={{ fontFamily: "Corpta", fontSize: 17, letterSpacing: 2, color: "var(--pure)" }}>DETAIL</div>
             <div
               style={{
                 width: "100%",
