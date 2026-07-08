@@ -43,7 +43,7 @@ Skills util (`src/lib/skills.ts`) + tests ✅ — 11 tests, incl. the 4 spec cas
 | Tab | Built | Realtime | Notes |
 |---|---|---|---|
 | Home | ✅ | ✅ (auto) | hero, nameplate, HP/Humanity, mission, news |
-| Profile (+Background slide) | ☐ | ☐ | stats, vitals, top skills, chrome; slide page |
+| Profile (+Background slide) | ✅ | ✅ (auto) | stats, vitals, top skills, chrome; slide page |
 | Inventory | ☐ | ☐ | category subtabs, 4-up grid, detail panel |
 | Store | ☐ | ☐ | status bar, subtabs, grid, cart (view-only) |
 | Activities | ☐ | ☐ | free-time card, standard list, random board |
