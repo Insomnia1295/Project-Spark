@@ -5,16 +5,18 @@ the cloud, with skill/stat auto-totals + server click-to-roll, the Profile→Bac
 and live GM-edit reflection. Built to the spec ([PHASE-1-portal-read-path.md](PHASE-1-portal-read-path.md))
 and reconciled to `reference/Steven Heartman.pdf`.
 
-> **Status: code complete, typechecked, unit-tested, and builds clean; boots to the login
-> screen with no console errors.** The live cloud walk-through (log in as Steven, see all 7
-> tabs) needs two GM steps first — see **§1 Cloud handoff** — because applying the schema and
-> seeding require the DB password + `service_role` key, which are not in `.env` by design.
+> **Status: LIVE.** Migration 0003 applied, `seed-phase1.mjs` run successfully, and the GM has
+> confirmed the portal works end-to-end against the cloud (`npm run tauri dev`, logged in as
+> `steven@netrun.local`) — 2026-07-08. Code is typechecked, unit-tested, and builds clean.
+> See **§1 Cloud handoff** for the commands (kept for reference/future re-seeding) and **§7**
+> for two post-launch fixes made after the initial GM walkthrough.
 
 ---
 
-## 1. Cloud handoff (GM runs once)
+## 1. Cloud handoff (GM runs once) — ✅ done 2026-07-08
 
-The build cannot push schema or seed data without secrets. Run these from your machine:
+The build cannot push schema or seed data without secrets, so this was run manually from the
+GM's machine (kept below for reference and for re-seeding later):
 
 ```powershell
 # 1. apply migration 0003 (new tables + RLS + realtime + skill_def fixes)
@@ -63,12 +65,12 @@ store / standard activities.
 | 8 | Typecheck / build | `npm run typecheck` · `npm run build` | ✅ 0 errors · ✅ 162 modules built |
 | 9 | Interchangeability | grep hex in screens; grep content in screens | ✅ 0 hex color literals in screens; ✅ 0 hardcoded character content (all from data) |
 | — | Boot smoke | vite dev + preview | ✅ renders login screen, no console errors |
-| 1 | 7 tabs populated from DB | log in as steven@netrun.local *(after §1)* | ⏳ GM — needs cloud apply + seed |
-| 3 | Click-to-roll logs a `dice_roll` | click a skill/stat *(after §1)* | ⏳ GM |
-| 4 | Background slide 60fps | Profile → BACKGROUND ▸ | ⏳ GM (transform/opacity only — GPU-composited) |
-| 5 | Realtime | edit a value in Supabase dashboard | ⏳ GM (auto-invalidate wired for all portal tables) |
-| 6 | Story ribbon ↔ vertical | click a session → BACK | ⏳ GM (DOM siblings toggled via `hidden`) |
-| 7 | No-overlap at 1600×900 | resize the window | ⏳ GM (panels re-fitted from the mock's 1000h to 900h) |
+| 1 | 7 tabs populated from DB | log in as steven@netrun.local | ✅ GM confirmed — cloud live, seeded, app functional |
+| 3 | Click-to-roll logs a `dice_roll` | click a skill/stat | ⏳ not individually itemized by GM — code path unchanged since Phase 0's verified `roll` self-test |
+| 4 | Background slide 60fps | Profile → BACKGROUND ▸ | ⏳ not individually itemized (transform/opacity only — GPU-composited) |
+| 5 | Realtime | edit a value in Supabase dashboard | ⏳ not individually itemized (auto-invalidate wired for all portal tables) |
+| 6 | Story ribbon ↔ vertical | click a session → BACK | ⏳ not individually itemized (DOM siblings toggled via `hidden`) |
+| 7 | No-overlap at 1600×900 | resize the window | ✅ GM confirmed after §7 fix (was showing letterbox seam/black bars — fixed) |
 
 ---
 
@@ -107,3 +109,28 @@ store / standard activities.
 
 Phase 2 — player self-edits + RLS (cash/HP/skills-add/inventory/contacts/background), narrowing
 the currently GM-only writes.
+
+---
+
+## 7. Post-launch fixes (after the GM's first live walkthrough)
+
+- **Seed bug: `equipped` NOT NULL violation** (commit `199f67d`). Supabase batch-inserts one
+  `INSERT` per call; when the rows in a batch have inconsistent key sets, any row missing a key
+  another row *does* set gets sent an explicit `null` instead of falling back to the column
+  default — `inventory_item.equipped` (`not null default false`) hit this because only 4 of 16
+  seed rows set it explicitly. Fixed by defaulting `equipped: false` before spreading each row
+  so every row in the batch explicitly carries the key.
+- **Letterbox "black bars" + full-screen toggle** (commit `bec9db3`). `.stage-viewport` (sized
+  to the real window) and `.scene` (the fixed 1600×900 box, CSS-scaled) each painted their own
+  copy of the atmosphere gradient, anchored to differently-sized boxes that could never line
+  up — visible as a rectangular seam against a near-black fallback whenever the window wasn't
+  exactly 16:9 (which is most of the time, since the window is resizable). Fixed by making
+  `.scene` transparent and keeping a single continuous gradient on `.stage-viewport`, with a
+  softened baseline vignette there so the existing per-scene `.scene::before` vignette (now
+  much lower opacity) doesn't reintroduce a visible step at the scene's edge.
+  Also added a small full-screen toggle (`src/app/fullscreen.ts`, wired into `StageViewport`) —
+  bottom-left, fixed physical size regardless of stage scale. Real OS-level full screen via the
+  Tauri window API when packaged (borderless, whole monitor — like a game), falling back to the
+  browser Fullscreen API in a plain web context. Required adding the
+  `core:window:allow-set-fullscreen` permission (not in Tauri's `core:default` set) to
+  `src-tauri/capabilities/default.json`. Stands in for a future Settings tab.

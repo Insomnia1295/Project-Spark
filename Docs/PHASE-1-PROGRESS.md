@@ -15,10 +15,15 @@ Gates: typecheck 0 errors · `npm test` 25/25 · `npm run build` clean · boots 
 Seed = `scripts/seed-phase1.mjs` (written, idempotent) — GM runs it (needs service_role).
 See [PHASE-1-RESULT.md](PHASE-1-RESULT.md) for the full handoff + self-test table.
 
-## Cloud handoff (GM runs; needs secrets I don't have)
-- [ ] `supabase db push` (applies migration 0003)
-- [ ] `node scripts/seed-phase1.mjs` (needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY)
-- [ ] verify live as steven@netrun.local
+## Cloud handoff — ✅ done 2026-07-08
+- [x] `supabase db push` (applied migration 0003)
+- [x] `node scripts/seed-phase1.mjs` (hit + fixed the `equipped` NOT NULL bug, commit 199f67d; re-ran clean)
+- [x] verified live as steven@netrun.local — GM confirmed working
+
+## Post-launch fixes (after first GM walkthrough)
+- [x] `199f67d` — seed script `equipped` null-fill bug (see above)
+- [x] `bec9db3` — letterbox "black bars" seam fix + full-screen toggle (`src/app/fullscreen.ts`,
+      `.fs-toggle` in StageViewport, `core:window:allow-set-fullscreen` permission)
 
 ## Tables (table → RLS → row type → Zod → seed → consumed)
 DDL+RLS, Types, Zod all ✅ in commit "Phase 1: data layer" (migration 0003).

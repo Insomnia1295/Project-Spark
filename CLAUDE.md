@@ -16,16 +16,21 @@ one Supabase project.
   6 seeded accounts, Steven's core sheet seeded, dice module + server-authoritative `roll`
   Edge Function, realtime smoke test, ported theme. Cloud is live (`selftest-live.mjs`
   10/10; local `npm test` 14/14). See [Docs/PHASE-0-RESULT.md](Docs/PHASE-0-RESULT.md).
-- **Phase 1: built (code complete) — read-only Player Portal.** All 7 tabs (Home,
-  Profile+Background, Inventory, Store, Activities, Contacts, Story So Far) render **from the
-  cloud** with skill/stat auto-totals + server click-to-roll and live GM-edit reflection.
-  Typecheck/tests/build green; boots clean. **Pending GM cloud apply:** `supabase db push`
-  (migration 0003) + `node scripts/seed-phase1.mjs`. See
+- **Phase 1: done & live.** Read-only Player Portal — all 7 tabs (Home, Profile+Background,
+  Inventory, Store, Activities, Contacts, Story So Far) render **from the cloud** with
+  skill/stat auto-totals + server click-to-roll and live GM-edit reflection. Migration 0003
+  applied, `seed-phase1.mjs` run, GM-confirmed working end-to-end. See
   [Docs/PHASE-1-RESULT.md](Docs/PHASE-1-RESULT.md). Player self-edits are Phase 2.
 - **Portal conventions (Phase 1):** screens compose primitives in `src/app/ui/`; all colors
   via `src/theme` tokens + `portal.css` (no hex in screens); data via `features/portal/data.ts`
   hooks (Zod-validated, realtime-invalidated); art via `app/assets.ts` registry; consequential
   rolls via `features/portal/roll.tsx`.
+- **App chrome:** `StageViewport` (used by every screen) hosts a bottom-left full-screen
+  toggle (`src/app/fullscreen.ts` — Tauri native window API when packaged, browser Fullscreen
+  API fallback on web) as a stand-in until a Settings tab exists. The stage's atmosphere
+  gradient lives ONLY on `.stage-viewport` (not `.scene`, which is transparent) — don't
+  reintroduce a second background on `.scene`, it recreates the letterbox seam bug fixed in
+  commit `bec9db3`.
 
 ---
 
