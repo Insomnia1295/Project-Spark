@@ -1,0 +1,15 @@
+# NETRUN OS — Supabase CLI config.
+# `project_id` is filled by `supabase link` (or set it to your project ref).
+project_id = "netrun-os"
+
+[db]
+# Local shadow DB port (only used for `supabase start`/local dev; hosted push ignores it).
+port = 54322
+major_version = 17
+
+[auth]
+enable_signup = false          # closed campaign — 6 seeded accounts only
+enable_anonymous_sign_ins = false
+
+[auth.email]
+enable_confirmations = false   # private campaign; skip email confirmation flow

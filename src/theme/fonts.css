@@ -1,0 +1,44 @@
+/* NETRUN OS — font faces.
+   Corpta DEMO = all-caps display/nav/numeric headings (feed uppercase only).
+   Inter = body (Light 300 default) + a few heavier weights for badges/labels.
+   Font files live in /public/fonts and are bundled locally (no CDN, CSP-safe). */
+
+@font-face {
+  font-family: "Corpta";
+  src: url("/fonts/Corpta-DEMO.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

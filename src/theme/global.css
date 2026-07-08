@@ -1,0 +1,274 @@
+/* NETRUN OS — global shell chrome & layout rules.
+   Ports the mock's shell concepts: fixed 1600x1000 stage + fit-scaler, the f1c
+   angular nav (collapsed-to-icons, hover-expand), and the no-overlap rule. */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 300;
+  color: var(--ink);
+  background: #05070d;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+button {
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.gw {
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.4), 0 3px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* ---- Fit-scaler: fixed stage centered + scaled to the window ----
+   The viewport uses the same themed dark fill as the scene, so on non-16:9
+   monitors any residual letterbox area blends in rather than showing black bars. */
+.stage-viewport {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(1200px 800px at 20% -10%, rgba(154, 108, 255, 0.1), transparent 60%),
+    radial-gradient(1000px 700px at 90% 110%, rgba(255, 90, 168, 0.08), transparent 60%),
+    #070b14;
+}
+
+.scene {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: center center;
+  width: var(--stage-w);
+  height: var(--stage-h);
+  overflow: hidden;
+  background:
+    radial-gradient(1200px 800px at 20% -10%, rgba(154, 108, 255, 0.14), transparent 60%),
+    radial-gradient(1000px 700px at 90% 110%, rgba(255, 90, 168, 0.12), transparent 60%),
+    #070b14;
+}
+
+.scene::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(6, 10, 20, 0.8),
+    rgba(6, 10, 20, 0.7) 45%,
+    rgba(6, 10, 20, 0.84)
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ---- Logo mark ---- */
+.logo {
+  position: absolute;
+  left: var(--nav-x);
+  top: 26px;
+  z-index: 40;
+}
+
+.logo .m {
+  width: 66px;
+  height: 52px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, var(--p1), var(--p1d));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: "Corpta";
+  font-size: 25px;
+  letter-spacing: 1px;
+}
+
+/* ---- f1c nav: flat angular buttons, collapsed to icons, hover-expand ---- */
+.menu {
+  position: absolute;
+  left: var(--nav-x);
+  top: 150px;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mi {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 60px;
+  width: var(--nav-collapsed);
+  padding: 0 21px;
+  /* bottom-left corner clip — the angular f1c silhouette */
+  clip-path: polygon(0 0, 100% 0, 100% 68%, 93% 100%, 0 100%);
+  background: var(--glass2);
+  border: 1px solid var(--str);
+  backdrop-filter: blur(10px);
+  color: var(--dim);
+  font-family: "Corpta";
+  font-size: 19px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: width 0.24s var(--ease-hud), color 0.18s, border-color 0.18s;
+}
+
+.menu:hover .mi {
+  width: var(--nav-expanded);
+}
+
+.mi:hover {
+  color: #fff;
+  border-color: var(--p1);
+}
+
+.mi.on {
+  background: linear-gradient(90deg, var(--p1), var(--p1d));
+  color: #fff;
+  border-color: var(--p1);
+}
+
+.menu:hover .mi.on {
+  width: 340px;
+}
+
+.mi .ico {
+  flex: none;
+  width: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.mi .lbl {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.menu:hover .mi .lbl {
+  opacity: 1;
+}
+
+.mi .dot {
+  position: absolute;
+  top: 8px;
+  right: 11px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--news);
+  box-shadow: 0 0 8px var(--news);
+  transition: opacity 0.2s;
+}
+
+.menu:hover .mi .dot {
+  opacity: 0;
+}
+
+/* ---- Page area — clears the nav via a fixed left gutter (no-overlap rule) ---- */
+.page {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  padding: 32px 44px 32px var(--gutter-left);
+}
+
+.ttl .k {
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 5px;
+  color: var(--p1);
+  text-transform: uppercase;
+}
+
+.ttl .t {
+  font-family: "Corpta";
+  font-size: 38px;
+  line-height: 1;
+  margin-top: 2px;
+  text-transform: uppercase;
+}
+
+/* ---- Glass panel + angular card primitives (from mock) ---- */
+.pn {
+  position: absolute;
+  background: var(--glass);
+  border: 1px solid var(--str);
+  backdrop-filter: blur(15px);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+}
+
+.cd {
+  position: relative;
+  background: var(--glass2);
+  border: 1px solid var(--str);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 13px 100%, 0 calc(100% - 13px));
+  transition: transform 0.2s ease, border-color 0.2s, box-shadow 0.2s;
+}
+
+/* ---- Angular button ---- */
+.btn {
+  text-align: center;
+  font-family: "Corpta";
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: #fff;
+  padding: 12px 22px;
+  background: linear-gradient(90deg, var(--p1), var(--p1d));
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 9px 100%, 0 calc(100% - 9px));
+  transition: filter 0.18s;
+}
+
+.btn:hover {
+  filter: brightness(1.14);
+}
+
+.btn:disabled {
+  filter: grayscale(0.6) brightness(0.7);
+  cursor: not-allowed;
+}
+
+.btn.ghost {
+  background: none;
+  border: 1px solid var(--p1);
+  color: var(--p1);
+}
+
+/* Corpta is uppercase-only — enforce it wherever the font is used. */
+.corpta,
+.btn,
+.mi,
+.ttl .t,
+.logo .m {
+  text-transform: uppercase;
+}
+
+.foot {
+  position: absolute;
+  right: 44px;
+  bottom: 14px;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--faint);
+  z-index: 6;
+}

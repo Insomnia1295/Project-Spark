@@ -1,0 +1,37 @@
+/* NETRUN OS — design tokens, ported verbatim from the visual mock (Docs/app.html).
+   These are the theme's single source of truth. Design is NOT frozen — tweak here,
+   never hard-code a color/spacing in a component. */
+
+:root {
+  /* Ink / text */
+  --ink: #f4f7fb;
+  --dim: rgba(244, 247, 251, 0.72);
+  --faint: rgba(244, 247, 251, 0.42);
+
+  /* Glass surfaces + hairline */
+  --glass: rgba(10, 14, 24, 0.62);
+  --glass2: rgba(10, 14, 24, 0.5);
+  --str: rgba(255, 255, 255, 0.13);
+
+  /* Player / accent tokens */
+  --p1: #ff5aa8;   /* primary pink */
+  --p1d: #7a1f52;  /* deep pink */
+  --p2: #9a6cff;   /* violet (player 2 / secondary) */
+  --news: #b76bff; /* news / badge violet */
+  --ok: #3ff0a0;   /* success green */
+
+  /* Fixed design stage — the fit-scaler scales this to the window (§3.6).
+     16:9 so it fills standard monitors edge-to-edge (no letterbox on 16:9). */
+  --stage-w: 1600px;
+  --stage-h: 900px;
+
+  /* Nav geometry */
+  --nav-x: 24px;
+  --nav-collapsed: 66px;
+  --nav-expanded: 312px;
+  /* Left gutter every page clears so nothing touches the nav (no-overlap rule). */
+  --gutter-left: 130px;
+
+  /* Motion */
+  --ease-hud: cubic-bezier(0.4, 0, 0.2, 1);
+}

@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+dist/
+dist-ssr/
+
+# Secrets — NEVER commit
+.env
+.env.local
+.env.*.local
+*.key
+
+# Tauri
+src-tauri/target/
+src-tauri/gen/
+
+# Tauri updater signing keys — NEVER commit
+*.pem
+**/updater-key
+**/updater-key.pub
+
+# Supabase local
+supabase/.branches/
+supabase/.temp/
+supabase/.env
+
+# Editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+
+# Test / build artifacts
+coverage/
+*.tsbuildinfo

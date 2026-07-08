@@ -1,0 +1,57 @@
+# NETRUN OS — build + publish the Windows installer on a version tag, and emit the
+# Tauri updater artifacts (latest.json) so the in-app auto-updater can find them.
+#
+# Trigger: push a tag like `v0.1.0`.
+#
+# Required repo secrets (Settings -> Secrets and variables -> Actions):
+#   TAURI_SIGNING_PRIVATE_KEY          — contents of the generated ~/.tauri/netrun-os.key
+#   TAURI_SIGNING_PRIVATE_KEY_PASSWORD — the password you set when generating it
+#
+# The matching PUBLIC key must be pasted into src-tauri/tauri.conf.json ->
+# plugins.updater.pubkey (committed), and the updater `endpoints` URL must point at
+# this repo's releases.
+
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    permissions:
+      contents: write
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: "./src-tauri -> target"
+
+      - name: Install frontend deps
+        run: npm ci
+
+      - name: Build + release (tauri-action)
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: "NETRUN OS ${{ github.ref_name }}"
+          releaseBody: "Automated build. The in-app updater reads latest.json from this release."
+          releaseDraft: true
+          prerelease: false
