@@ -36,10 +36,10 @@ const admin = createClient(url, serviceKey, {
 const ACCOUNTS = [
   { email: "gm@netrun.local", role: "gm", name: "Game Master" },
   { email: "steven@netrun.local", role: "player", name: "Steven Heartman", steven: true },
-  { email: "player2@netrun.local", role: "player", name: "Player Two" },
-  { email: "player3@netrun.local", role: "player", name: "Player Three" },
-  { email: "player4@netrun.local", role: "player", name: "Player Four" },
-  { email: "player5@netrun.local", role: "player", name: "Player Five" },
+  { email: "seph@netrun.local", role: "player", name: "Seph Sugar" },
+  { email: "frank@netrun.local", role: "player", name: "Frank Ratosheema" },
+  { email: "victor@netrun.local", role: "player", name: "Victor Cone" },
+  { email: "zeusmd@netrun.local", role: "player", name: "Zeus MD" },
 ];
 
 // Steven "Doc" Heartman — Medtech / Ripper-Doc Merc (plan §4.2).

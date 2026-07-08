@@ -88,10 +88,10 @@ Created by `scripts/seed-accounts.mjs`. Default password `netrun-2076` (override
 |---|---|---|
 | GM | `gm@netrun.local` | Game Master |
 | Player | `steven@netrun.local` | Steven "Doc" Heartman *(featured PC, owns the seeded sheet)* |
-| Player | `player2@netrun.local` | Player Two |
-| Player | `player3@netrun.local` | Player Three |
-| Player | `player4@netrun.local` | Player Four |
-| Player | `player5@netrun.local` | Player Five |
+| Player | `seph@netrun.local` | Seph Sugar |
+| Player | `frank@netrun.local` | Frank Ratosheema |
+| Player | `victor@netrun.local` | Victor Cone |
+| Player | `zeusmd@netrun.local` | Zeus MD |
 
 Steven's seeded stats: INT 8 · REF 6 · DEX 4 · TECH 8 · COOL 7 · WILL 5 · LUCK 7 ·
 MOVE 3 · BODY 8 · EMP 7 · HP 45/45 · Humanity 42 · Reputation tracked-but-hidden (0, GM sets later).
