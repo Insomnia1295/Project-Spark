@@ -39,7 +39,7 @@ export function ScreenFrame({
   kicker: string;
   title: string;
   loading?: boolean;
-  error?: string | null;
+  error?: string | null | undefined;
   children: ReactNode;
 }) {
   return (
