@@ -38,16 +38,26 @@ button {
 }
 
 /* ---- Fit-scaler: fixed stage centered + scaled to the window ----
-   The viewport uses the same themed dark fill as the scene, so on non-16:9
-   monitors any residual letterbox area blends in rather than showing black bars. */
+   ONE continuous atmosphere lives on .stage-viewport (sized to the real window, never
+   scaled). .scene is intentionally transparent — it used to paint a second copy of this
+   gradient sized to its own 1600x900 box, which the CSS transform then scaled independently
+   of the outer copy, so the two never lined up: the mismatch showed as a visible rectangular
+   seam against a near-black fallback, i.e. exactly the "black bars" a non-16:9 window (or
+   letterbox in general) would show. With only the outer layer, the letterbox areas and the
+   stage content share the same backdrop with no seam. */
 .stage-viewport {
   position: absolute;
   inset: 0;
   overflow: hidden;
+  /* Baseline vertical vignette at ~two-thirds of .scene::before's strength, so the letterbox
+     area is already close in tone to the scene's edge — the extra full-strength vignette
+     inside the scene (over backdrop art) reads as a gentle deepening, not a hard seam. */
   background:
-    radial-gradient(1200px 800px at 20% -10%, rgba(154, 108, 255, 0.1), transparent 60%),
-    radial-gradient(1000px 700px at 90% 110%, rgba(255, 90, 168, 0.08), transparent 60%),
-    #070b14;
+    linear-gradient(180deg, rgba(6, 10, 20, 0.55), rgba(6, 10, 20, 0.4) 45%, rgba(6, 10, 20, 0.6)),
+    radial-gradient(1200px 800px at 20% -10%, rgba(154, 108, 255, 0.16), transparent 62%),
+    radial-gradient(1000px 700px at 90% 110%, rgba(255, 90, 168, 0.13), transparent 62%),
+    radial-gradient(1400px 1400px at 50% 50%, rgba(90, 70, 140, 0.08), transparent 70%),
+    #0a0f1e;
 }
 
 .scene {
@@ -58,21 +68,47 @@ button {
   width: var(--stage-w);
   height: var(--stage-h);
   overflow: hidden;
-  background:
-    radial-gradient(1200px 800px at 20% -10%, rgba(154, 108, 255, 0.14), transparent 60%),
-    radial-gradient(1000px 700px at 90% 110%, rgba(255, 90, 168, 0.12), transparent 60%),
-    #070b14;
+  background: transparent;
+}
+
+/* ---- Full-screen toggle: small, bottom-left of the REAL window (a sibling of .scene,
+   not inside it, so it stays a fixed physical size regardless of stage scale/letterbox).
+   Stand-in control until a Settings tab exists. ---- */
+.fs-toggle {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 50;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--glass2);
+  border: 1px solid var(--str);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--faint);
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.fs-toggle:hover {
+  color: var(--pure);
+  border-color: var(--p1);
+  background: var(--glass);
 }
 
 .scene::before {
   content: "";
   position: absolute;
   inset: 0;
+  /* Kept deliberately low: stacked on the .stage-viewport baseline vignette above, a
+     strong value here reintroduces a visible seam at the scene's edge. This is meant to
+     read as a slight extra deepening over backdrop art, not the primary vignette. */
   background: linear-gradient(
     180deg,
-    rgba(6, 10, 20, 0.8),
-    rgba(6, 10, 20, 0.7) 45%,
-    rgba(6, 10, 20, 0.84)
+    rgba(6, 10, 20, 0.32),
+    rgba(6, 10, 20, 0.18) 45%,
+    rgba(6, 10, 20, 0.38)
   );
   z-index: 0;
   pointer-events: none;

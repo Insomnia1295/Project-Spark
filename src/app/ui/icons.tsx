@@ -41,7 +41,9 @@ export type IconKey =
   | "message"
   | "send"
   | "search"
-  | "back";
+  | "back"
+  | "expand"
+  | "compress";
 
 const PATHS: Record<IconKey, ReactNode> = {
   home: (
@@ -128,6 +130,22 @@ const PATHS: Record<IconKey, ReactNode> = {
     </>
   ),
   back: <path d="M15 5l-7 7 7 7" />,
+  expand: (
+    <>
+      <path d="M9 4H4v5" />
+      <path d="M15 4h5v5" />
+      <path d="M4 15v5h5" />
+      <path d="M20 15v5h-5" />
+    </>
+  ),
+  compress: (
+    <>
+      <path d="M9 4v5H4" />
+      <path d="M15 4v5h5" />
+      <path d="M9 20v-5H4" />
+      <path d="M15 20v-5h5" />
+    </>
+  ),
 };
 
 export function Icon({ name, size = 22 }: { name: IconKey; size?: number }) {

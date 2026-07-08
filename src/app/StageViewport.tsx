@@ -3,6 +3,8 @@
 // centered. GPU-composited (transform only) so it stays at 60fps on resize.
 
 import { useEffect, useRef, type ReactNode } from "react";
+import { useFullscreen } from "./fullscreen";
+import { Icon } from "./ui/icons";
 
 // Fixed design stage — 16:9 so it fills standard monitors edge-to-edge.
 const STAGE_W = 1600;
@@ -10,6 +12,7 @@ const STAGE_H = 900;
 
 export function StageViewport({ children }: { children: ReactNode }) {
   const sceneRef = useRef<HTMLDivElement>(null);
+  const { fullscreen, toggle } = useFullscreen();
 
   useEffect(() => {
     const el = sceneRef.current;
@@ -33,6 +36,15 @@ export function StageViewport({ children }: { children: ReactNode }) {
       <div className="scene" ref={sceneRef}>
         {children}
       </div>
+      <button
+        type="button"
+        className="fs-toggle"
+        onClick={toggle}
+        title={fullscreen ? "Exit full screen" : "Enter full screen"}
+        aria-label={fullscreen ? "Exit full screen" : "Enter full screen"}
+      >
+        <Icon name={fullscreen ? "compress" : "expand"} size={16} />
+      </button>
     </div>
   );
 }
