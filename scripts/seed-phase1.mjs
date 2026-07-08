@@ -224,7 +224,10 @@ async function main() {
   await delOwned("cyberware", steven);
   await insert("cyberware", CYBERWARE.map((c) => ({ ...c, owner: steven })));
   await delOwned("inventory_item", steven);
-  await insert("inventory_item", INVENTORY.map((i) => ({ ...i, owner: steven })));
+  // `equipped` default first so every row explicitly carries it — PostgREST fills
+  // ANY key missing from an individual row (in a batch insert) with a literal null,
+  // rather than leaving it to the column default, which would violate NOT NULL.
+  await insert("inventory_item", INVENTORY.map((i) => ({ equipped: false, ...i, owner: steven })));
   await delOwned("contact", steven);
   await insert("contact", CONTACTS.map((c) => ({ ...c, owner: steven })));
   await delOwned("mission", steven);
