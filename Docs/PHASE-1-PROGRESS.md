@@ -42,7 +42,7 @@ Skills util (`src/lib/skills.ts`) + tests ✅ — 11 tests, incl. the 4 spec cas
 ## Screens (built / themed / data-driven / self-test)
 | Tab | Built | Realtime | Notes |
 |---|---|---|---|
-| Home | ☐ | ☐ | hero, nameplate, HP/Humanity, mission, news |
+| Home | ✅ | ✅ (auto) | hero, nameplate, HP/Humanity, mission, news |
 | Profile (+Background slide) | ☐ | ☐ | stats, vitals, top skills, chrome; slide page |
 | Inventory | ☐ | ☐ | category subtabs, 4-up grid, detail panel |
 | Store | ☐ | ☐ | status bar, subtabs, grid, cart (view-only) |
@@ -51,10 +51,11 @@ Skills util (`src/lib/skills.ts`) + tests ✅ — 11 tests, incl. the 4 spec cas
 | Story So Far | ☐ | ☐ | ribbon ↔ vertical detail |
 
 ## Shared primitives
-- [ ] Panel, Card, SectionHeader, StatChip, Bar, Segmented, NavButton, CategoryTabs
-- [ ] asset registry (id → source; temp placeholders)
-- [ ] useCharacter / useSkills / realtime subscription hook
-- [ ] skills util (level + gov stat) + unit tests
+- [x] Panel, Card, SectionHeader, StatChip, VitalBar, Segmented, SkillRow, CategoryTabs, Pill, Avatar, IconBox, NavRail (`src/app/ui/`)
+- [x] icon set (`src/app/ui/icons.tsx`), portal.css visual language, tokens (gradients/insets)
+- [x] asset registry (id → source; temp placeholders) — `src/app/assets.ts`
+- [x] data hooks + realtime (`src/features/portal/data.ts`); click-to-roll (`roll.tsx`)
+- [x] skills util (level + gov stat) + unit tests
 
 ## Known reconciliations (mock vs sheet → sheet wins)
 - Brawling/Martial Arts/Melee Weapon are **DEX** (Phase 0 seed had REF) — fixed in 0003.

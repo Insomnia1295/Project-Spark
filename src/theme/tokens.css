@@ -19,6 +19,19 @@
   --p2: #9a6cff;   /* violet (player 2 / secondary) */
   --news: #b76bff; /* news / badge violet */
   --ok: #3ff0a0;   /* success green */
+  --warm: #ff9a6e; /* warm end of the HP bar */
+
+  /* Inset surfaces + bar tracks (repeated fills, tokenized so components carry no raw colors) */
+  --inset: rgba(255, 255, 255, 0.04);
+  --inset2: rgba(255, 255, 255, 0.03);
+  --track: rgba(0, 0, 0, 0.42);
+
+  /* Gradients (theme-owned; screens reference these, never raw color stops) */
+  --grad-brand: linear-gradient(135deg, var(--p1), var(--p1d));
+  --grad-p1: linear-gradient(90deg, var(--p1), var(--p1d));
+  --grad-hp: linear-gradient(90deg, var(--news), var(--warm));
+  --grad-humanity: linear-gradient(90deg, var(--p1), var(--p2));
+  --grad-timeline: linear-gradient(90deg, var(--p1), var(--p2));
 
   /* Fixed design stage — the fit-scaler scales this to the window (§3.6).
      16:9 so it fills standard monitors edge-to-edge (no letterbox on 16:9). */

@@ -8,6 +8,7 @@ import { App } from "@/app/App";
 import "@/theme/fonts.css";
 import "@/theme/tokens.css";
 import "@/theme/global.css";
+import "@/theme/portal.css";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 30_000, refetchOnWindowFocus: false } },

@@ -1,0 +1,453 @@
+/* NETRUN OS — Player Portal visual language (Phase 1).
+   All color/gradient/radius values come from src/theme/tokens.css. Screens apply
+   these semantic classes + data; they never carry raw colors. A restyle = editing
+   tokens or this file, not the screens. */
+
+/* ---- Nav rail: forced-open state (Home) + notification badge ---- */
+.menu.open .mi {
+  width: var(--nav-expanded);
+}
+.menu.open .mi.on {
+  width: 340px;
+}
+.menu.open .mi .lbl {
+  opacity: 1;
+}
+.menu.open .mi .dot {
+  opacity: 0;
+}
+.mi .bd {
+  margin-left: auto;
+  background: var(--news);
+  color: #0a0a12;
+  font: 700 11px "Inter";
+  border-radius: 9px;
+  padding: 2px 8px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.menu:hover .mi .bd,
+.menu.open .mi .bd {
+  opacity: 1;
+}
+
+/* ---- Accent bar on panels/cards ---- */
+.pn.acc::before,
+.cd.acc::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--p1);
+  opacity: 0.65;
+  z-index: 1;
+}
+
+/* ---- Tappable card ---- */
+.cd.tap {
+  cursor: pointer;
+}
+.cd.tap:hover {
+  transform: translateY(-3px);
+  border-color: var(--p1);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+}
+
+/* ---- Section header (skew ticks + title + meta) ---- */
+.hh {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Corpta";
+  font-size: 17px;
+  letter-spacing: 2px;
+  color: #fff;
+}
+.hh .sl {
+  display: flex;
+  gap: 4px;
+}
+.hh .sl i {
+  width: 9px;
+  height: 13px;
+  background: var(--p1);
+  transform: skewX(-20deg);
+  opacity: 0.8;
+}
+.hh .cnt {
+  margin-left: auto;
+  font: 700 10px "Inter";
+  color: var(--faint);
+  letter-spacing: 1px;
+}
+
+/* ---- Header pills (free time / eddies) ---- */
+.pills {
+  position: absolute;
+  right: 44px;
+  top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 12;
+}
+.pill {
+  height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 0 18px;
+  border-radius: 12px;
+  background: var(--glass);
+  border: 1px solid var(--str);
+  backdrop-filter: blur(12px);
+}
+.pill .l {
+  font: 300 10px "Inter";
+  letter-spacing: 2px;
+  color: var(--dim);
+}
+.pill .v {
+  font-family: "Corpta";
+  font-size: 19px;
+}
+.pill .v .u {
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--dim);
+}
+.pill.ft .v {
+  color: var(--p1);
+}
+.pill.ed .v {
+  color: var(--p2);
+}
+.ic {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--glass);
+  border: 1px solid var(--str);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dim);
+  position: relative;
+}
+.ic:hover {
+  color: #fff;
+  border-color: var(--p1);
+}
+.ic .b {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  background: var(--news);
+  color: #0a0a12;
+  font: 700 9px "Inter";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+/* ---- Stat chip (Profile stats; tappable to roll) ---- */
+.statchip {
+  background: var(--inset);
+  border: 1px solid var(--str);
+  border-radius: 9px;
+  padding: 8px 0 6px;
+  text-align: center;
+  transition: border-color 0.18s, transform 0.18s;
+}
+.statchip.tap {
+  cursor: pointer;
+}
+.statchip.tap:hover {
+  border-color: var(--p1);
+  transform: translateY(-2px);
+}
+.statchip .l {
+  font: 400 10px "Inter";
+  color: var(--dim);
+}
+.statchip .v {
+  font-family: "Corpta";
+  font-size: 24px;
+  color: #fff;
+  line-height: 1;
+}
+
+/* ---- Labeled vital bar ---- */
+.vbar .row {
+  display: flex;
+  justify-content: space-between;
+  font: 300 11px "Inter";
+  color: var(--dim);
+  margin-bottom: 5px;
+}
+.vbar .track {
+  height: 9px;
+  border-radius: 9px;
+  background: var(--track);
+  border: 1px solid var(--str);
+  overflow: hidden;
+}
+.vbar .fill {
+  display: block;
+  height: 100%;
+  background: var(--grad-humanity);
+}
+.vbar .fill.hp {
+  background: var(--grad-hp);
+}
+
+/* ---- Segmented meter ---- */
+.seg {
+  display: flex;
+  gap: 3px;
+  height: 9px;
+}
+.seg i {
+  flex: 1;
+  background: var(--p1);
+  opacity: 0.25;
+  border-radius: 1px;
+}
+.seg i.on {
+  opacity: 0.9;
+}
+
+/* ---- Skill row (level pips + total) ---- */
+.skillrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 11px;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 2px 4px;
+  transition: background 0.15s;
+}
+.skillrow:hover {
+  background: var(--inset);
+}
+.skillrow .nm {
+  font: 300 13px "Inter";
+  width: 116px;
+}
+.skillrow .pips {
+  display: flex;
+  gap: 2px;
+  flex: 1;
+}
+.skillrow .pips i {
+  flex: 1;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--str);
+}
+.skillrow .pips i.on {
+  background: var(--p1);
+}
+.skillrow .tot {
+  font-family: "Corpta";
+  font-size: 15px;
+  color: #fff;
+  width: 34px;
+  text-align: right;
+}
+
+/* ---- Category tabs (inventory / store) ---- */
+.cattabs {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+.cattab {
+  background: var(--inset2);
+  color: var(--dim);
+  border: 1px solid var(--str);
+  font-family: "Corpta";
+  font-size: 13px;
+  letter-spacing: 1px;
+  padding: 8px 15px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 9px 100%, 0 calc(100% - 9px));
+  transition: color 0.18s, border-color 0.18s;
+}
+.cattab:hover {
+  color: #fff;
+}
+.cattab.on {
+  background: linear-gradient(90deg, rgba(255, 90, 168, 0.28), transparent);
+  border-color: var(--p1);
+  color: #fff;
+}
+
+/* ---- Item grid + card meta ---- */
+.grid4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.iconbox {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: var(--inset);
+  border: 1px solid var(--str);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--p1);
+}
+.itemname {
+  font-family: "Corpta";
+  font-size: 14px;
+  margin-top: 10px;
+  line-height: 1.1;
+  letter-spacing: 0.5px;
+}
+.itemmeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+.itemmeta .sub {
+  font: 300 11px "Inter";
+  color: var(--dim);
+}
+.itemmeta .qty {
+  font-family: "Corpta";
+  font-size: 13px;
+  color: var(--p2);
+  letter-spacing: 1px;
+}
+.tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font: 700 8px "Inter";
+  color: var(--p1);
+  border: 1px solid var(--p1);
+  border-radius: 6px;
+  padding: 1px 5px;
+}
+
+/* ---- Inset row (chrome, cart, contact) ---- */
+.inset-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--inset);
+  border: 1px solid var(--str);
+  border-radius: 9px;
+  padding: 11px 14px;
+}
+
+/* ---- Avatar ---- */
+.avatar {
+  position: relative;
+  border-radius: 50%;
+  flex: none;
+  background: var(--grad-brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Corpta";
+  color: #fff;
+}
+.avatar.on::after {
+  content: "";
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--ok);
+  border: 2px solid #0a0e18;
+}
+
+/* ---- Roll result toast (bottom-center, ~half width) ---- */
+.roll-toast {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  width: 780px;
+  max-width: 60%;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 22px;
+  background: var(--glass);
+  border: 1px solid var(--p1);
+  backdrop-filter: blur(14px);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  animation: rolltoast 0.24s ease both;
+}
+@keyframes rolltoast {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+.roll-toast .die {
+  font-family: "Corpta";
+  font-size: 34px;
+  color: #fff;
+  line-height: 1;
+}
+.roll-toast.crit {
+  border-color: var(--ok);
+}
+.roll-toast.fumble {
+  border-color: var(--warm);
+}
+
+/* ---- Slide stage (Profile ↔ Background) ---- */
+.slide-stage {
+  position: absolute;
+  inset: 0;
+  width: 3200px; /* two 1600-wide pages side by side */
+  display: flex;
+  transition: transform 0.42s var(--ease-hud);
+  will-change: transform;
+}
+.slide-stage.right {
+  transform: translateX(-1600px);
+}
+.slide-page {
+  position: relative;
+  width: 1600px;
+  height: 900px;
+  flex: none;
+}
+
+/* ---- Story views (ribbon ↔ vertical) ---- */
+.story-view {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+}
+.story-view[hidden] {
+  display: none;
+}
+.vt-entry.sel {
+  background: linear-gradient(90deg, rgba(255, 90, 168, 0.18), transparent);
+  border-color: var(--p1);
+}
