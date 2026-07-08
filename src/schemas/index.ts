@@ -37,6 +37,12 @@ export const characterSheetSchema = z.object({
   max_hp: z.number().int().min(1),
   humanity: z.number().int().min(0),
   reputation: z.number().int().min(0),
+  handle: z.string().nullable(),
+  role_title: z.string().nullable(),
+  role_line: z.string().nullable(),
+  role_ability: z.string().nullable(),
+  role_rank: z.number().int().nullable(),
+  eddies: z.number().int().min(0),
   created_at: z.string(),
   updated_at: z.string(),
 });
@@ -88,6 +94,173 @@ export const diceRollSchema = z.object({
   created_at: z.string(),
 });
 export type DiceRoll = z.infer<typeof diceRollSchema>;
+
+// ---- Phase 1 content entities (validated at the read boundary) ----
+
+export const skillSchema = z.object({
+  id: z.string().uuid(),
+  owner: z.string().uuid(),
+  skill_def_id: z.string().uuid(),
+  spec: z.string().nullable(),
+  level: z.number().int().min(0).max(10),
+  created_at: z.string(),
+  updated_at: z.string(),
+});
+export type Skill = z.infer<typeof skillSchema>;
+
+export const cyberwareSchema = z.object({
+  id: z.string().uuid(),
+  owner: z.string().uuid(),
+  name: z.string().min(1),
+  slot: z.string(),
+  detail: z.string().nullable(),
+  sort: z.number().int(),
+  created_at: z.string(),
+  updated_at: z.string(),
+});
+export type Cyberware = z.infer<typeof cyberwareSchema>;
+
+export const inventoryCategorySchema = z.enum([
+  "weapon",
+  "armor",
+  "utility",
+  "implant",
+  "junk",
+]);
+export type InventoryCategory = z.infer<typeof inventoryCategorySchema>;
+
+export const inventoryItemSchema = z.object({
+  id: z.string().uuid(),
+  owner: z.string().uuid(),
+  name: z.string().min(1),
+  category: inventoryCategorySchema,
+  subtitle: z.string().nullable(),
+  qty: z.number().int().min(0),
+  equipped: z.boolean(),
+  detail: z.string().nullable(),
+  damage: z.string().nullable(),
+  rof: z.number().int().nullable(),
+  mag: z.string().nullable(),
+  sort: z.number().int(),
+  created_at: z.string(),
+  updated_at: z.string(),
+});
+export type InventoryItem = z.infer<typeof inventoryItemSchema>;
+
+export const contactSchema = z.object({
+  id: z.string().uuid(),
+  owner: z.string().uuid(),
+  name: z.string().min(1),
+  relationship: z.string(),
+  online: z.boolean(),
+  sort: z.number().int(),
+  created_at: z.string(),
+  updated_at: z.string(),
+});
+export type Contact = z.infer<typeof contactSchema>;
+
+export const missionSchema = z.object({
+  id: z.string().uuid(),
+  owner: z.string().uuid(),
+  title: z.string().min(1),
+  status: z.enum(["current", "done", "failed"]),
+  sort: z.number().int(),
+  created_at: z.string(),
+  updated_at: z.string(),
+});
+export type Mission = z.infer<typeof missionSchema>;
+
+export const freeTimeLedgerSchema = z.object({
+  id: z.string().uuid(),
+  owner: z.string().uuid(),
+  hours_remaining: z.number().int().min(0),
+  hours_total: z.number().int().min(1),
+  created_at: z.string(),
+  updated_at: z.string(),
+});
+export type FreeTimeLedger = z.infer<typeof freeTimeLedgerSchema>;
+
+export const characterBackgroundSchema = z.object({
+  id: z.string().uuid(),
+  owner: z.string().uuid(),
+  slot: z.string().min(1),
+  label: z.string().min(1),
+  body: z.string(),
+  sort: z.number().int(),
+  created_at: z.string(),
+  updated_at: z.string(),
+});
+export type CharacterBackground = z.infer<typeof characterBackgroundSchema>;
+
+export const activitySchema = z.object({
+  id: z.string().uuid(),
+  owner: z.string().uuid().nullable(),
+  kind: z.enum(["standard", "random"]),
+  name: z.string().min(1),
+  hour_cost: z.number().int().min(0).nullable(),
+  icon: z.string().nullable(),
+  with_contact: z.string().nullable(),
+  reward: z.string().nullable(),
+  skill_check: z.string().nullable(),
+  deadline_label: z.string().nullable(),
+  planned_label: z.string().nullable(),
+  progress: z.number().int().min(0),
+  progress_max: z.number().int().min(0),
+  sort: z.number().int(),
+  created_at: z.string(),
+  updated_at: z.string(),
+});
+export type Activity = z.infer<typeof activitySchema>;
+
+export const newsPostSchema = z.object({
+  id: z.string().uuid(),
+  title: z.string().min(1),
+  body: z.string().min(1),
+  kind: z.string(),
+  sort: z.number().int(),
+  created_at: z.string(),
+  updated_at: z.string(),
+});
+export type NewsPost = z.infer<typeof newsPostSchema>;
+
+export const timelineEventSchema = z.object({
+  id: z.string().uuid(),
+  session_no: z.number().int(),
+  title: z.string().min(1),
+  date_label: z.string().min(1),
+  summary: z.string(),
+  full_text: z.string(),
+  sort: z.number().int(),
+  created_at: z.string(),
+  updated_at: z.string(),
+});
+export type TimelineEvent = z.infer<typeof timelineEventSchema>;
+
+export const catalogCategorySchema = z.enum(["weapon", "armor", "utility", "implant"]);
+export type CatalogCategory = z.infer<typeof catalogCategorySchema>;
+
+export const catalogItemSchema = z.object({
+  id: z.string().uuid(),
+  name: z.string().min(1),
+  category: catalogCategorySchema,
+  subtitle: z.string().nullable(),
+  price: z.number().int().min(0),
+  sort: z.number().int(),
+  created_at: z.string(),
+  updated_at: z.string(),
+});
+export type CatalogItem = z.infer<typeof catalogItemSchema>;
+
+export const storeSettingsSchema = z.object({
+  id: z.string().uuid(),
+  singleton: z.boolean(),
+  is_open: z.boolean(),
+  closes_at: z.string().nullable(),
+  note: z.string().nullable(),
+  created_at: z.string(),
+  updated_at: z.string(),
+});
+export type StoreSettings = z.infer<typeof storeSettingsSchema>;
 
 /** Server `roll` Edge Function response shape (validated client-side). */
 export const rollResponseSchema = z.object({
